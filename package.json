@@ -1,0 +1,19 @@
+{
+  "name": "nk",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">\r 🌐 MERN Stack\r </h1>\r <p align=\"center\">\r MongoDB, Expressjs, React/Redux, Nodejs\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaktichowdhry/NK.git"
+  },
+  "author": "shakti chowdhry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shaktichowdhry/NK/issues"
+  },
+  "homepage": "https://github.com/shaktichowdhry/NK#readme"
+}

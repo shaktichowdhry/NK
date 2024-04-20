@@ -1,0 +1,10 @@
+node_modules/
+
+/public
+
+.env
+.passport.js
+.DS_Store
+
+build/
+dist/
