@@ -13,18 +13,25 @@ import {
 const router = express.Router();
 
 // validation middlewares objects
-const addProductValidationRule = [
+const addProductValidationRules = [
+    // body() vs check()
     check('title').not().isEmpty(),
     check('mrp').not().isEmpty().isNumeric(),
+
+];
+const editProductValidationRules = [
+  // body() vs check()
+  check('title').not().isEmpty(),
+  check('mrp').not().isEmpty().isNumeric(),
 
 ];
 
 
 // routes
-router.post("/add-product", addProductValidationRule, addProduct);
+router.post("/add-product", addProductValidationRules, addProduct);
 router.get("/:pid", getProduct);
 router.delete("/:pid", deleteProduct);
-router.put("/edit/:pid", editProduct);
+router.patch("/edit/:pid",editProductValidationRules, editProduct);
 router.get("/", getAllProducts);
 
 export default router;
