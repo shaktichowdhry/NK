@@ -1,6 +1,7 @@
 import HttpError from "../models/httpErrorModel.js";
 import { validationResult } from "express-validator";
 import Product from "../models/product.js";
+// import Category from '../models/category.js';
 
 // dummy data till we get mongoDB
 // let DUMMY_PRODUCTS = [
@@ -46,7 +47,7 @@ const addProduct = async (req, res, next) => {
     more_images,
     description,
     status,
-    categories,
+    categories 
   } = req.body;
   const createdProduct = new Product({
     title,
@@ -58,6 +59,30 @@ const addProduct = async (req, res, next) => {
     status,
     categories,
   });
+
+  // let category;
+  // try {
+  //   category = await Category.findById(categories);
+  // } catch (err) {
+  //   return next(new HttpError("Creating categories failed! Try again.", 500));
+  // }
+  // if (!category) {
+  //   return next(new HttpError("Could not find category", 404));
+  // }
+  // try {
+  //   const sess = await mongoose.startSession();
+  //   sess.startTransaction();
+  //   await createdProduct.save({session: sess});
+  //   category.products.push(createdProduct); //pull to remove
+  //   await category.save({session: sess});
+  //   await sess.commitTransaction();
+
+  // } catch (err) {
+  //   return next(
+  //     new HttpError("Creating Product failed, please try again.", 500)
+  //   );
+  // }
+
   try {
     await createdProduct.save();
   } catch (err) {
@@ -135,13 +160,15 @@ const deleteProduct = async (req, res, next) => {
   }
   try {
     await product.remove();
-  }catch(err) {
+  } catch (err) {
     return next(new HttpError("Could not delete product.", 500));
   }
   //   200 success
-  res.status(200).json({ message: `product deleted for product id ${productId}` });
+  res
+    .status(200)
+    .json({ message: `product deleted for product id ${productId}` });
 };
 
-const isProductExist = () => {};
+const isExistingProduct = () => {};
 
 export { getAllProducts, addProduct, getProduct, deleteProduct, editProduct };
