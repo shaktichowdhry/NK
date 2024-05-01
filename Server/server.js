@@ -1,14 +1,14 @@
 import "dotenv/config";
 import express from "express";
 import bodyParser from "body-parser";
-import HttpError from "./admin/models/httpErrorModel.js";
-import mongoose from 'mongoose';
-import categoriesRoutes from "./admin/routes/categoryRoutes.js";
-import productRoutes from "./admin/routes/productRoutes.js";
+import HttpError from "./models/httpErrorModel.js";
+import categoriesRoutes from "./routes/categoryRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import connectDB from "./config/db.js";
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 5500;
-const URI = process.env.MONGODB_URI;
+
 
 // middleware before reaching routes
 app.use(bodyParser.json());
@@ -38,12 +38,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-
-mongoose.connect(URI).then(() =>{
+// MongoDB connection and app listening
+connectDB().then(()=> {
   app.listen(PORT, () => {
-    console.log(`listening on port ${PORT} and connected to atlas database`);
+    console.log(`Server listening on port ${PORT}`);
   });
-}).catch((err) => {
-  console.log(err);
 });
+
 
