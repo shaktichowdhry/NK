@@ -1,22 +1,38 @@
-import { Schema, model } from 'mongoose';
-// import uniqueValidator from 'mongoose-unique-validator';
+import { Schema, model } from "mongoose";
+import uniqueValidator from "mongoose-unique-validator";
+import Review from "./review.js";
+import imageSchema from "./image.js";
 
-const productSchema = new Schema({
-    title: { type: String, required: true},
-    mrp:{ type: Number, required: true},
-    discount_mrp: { type: Number},
-    image: { type: String, required: true},
-    more_images: [{ type: String}],
-    description: { type: String, required: true},
-    status: { type: String, required: true},
-    categories: [{ type: String, required: true}],
-  
-});
+const productSchema = new Schema(
+  {
+    title: { type: String, required: true, unique: true },
+    price: { type: Number, required: true },
+    discount_price: { type: Number },
+    count_in_stock: { type: Number, required: true },
+    images: [imageSchema],
+    reviews: [{ type: Schema.Types.ObjectID, ref: Review }],
+    categories: [{ type: String, required: true }],
+    description: { type: String, required: true },
+    status: { type: Boolean, default: true },
+    rating: { type: Number },
+    reviews_number: { type: Number },
+    sales: { type: Number, default: 0 },
+    attrs: [
+      { key: { type: String }, value: { type: String } },
+      // [{ key: "color", value: "red" }]
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-// email: {type: String, unique: true},
-// categories: [{ type: mongoose.Types.ObjectID, ref: 'Category',required: true}],
-// productSchema.plugin(uniqueValidator);
-
+productSchema.plugin(uniqueValidator);
+productSchema.index(
+  { title: "text", description: "text" },
+  { title: "TextIndex" }
+);
+productSchema.index({"attr.key":1, "attr.value":1});
 
 // Singular collection name
-export default model('Product', productSchema);
+export default model("Product", productSchema);

@@ -16,13 +16,13 @@ const router = express.Router();
 const addProductValidationRules = [
     // body() vs check()
     check('title').not().isEmpty(),
-    check('mrp').not().isEmpty().isNumeric(),
+    check('price').not().isEmpty().isNumeric(),
 
 ];
 const editProductValidationRules = [
   // body() vs check()
   check('title').not().isEmpty(),
-  check('mrp').not().isEmpty().isNumeric(),
+  check('price').not().isEmpty().isNumeric(),
 
 ];
 

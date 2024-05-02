@@ -41,20 +41,18 @@ const addProduct = async (req, res, next) => {
   // because we added body parser - no need to destructure it
   const {
     title,
-    mrp,
-    discount_mrp,
-    image,
-    more_images,
+    price,
+    discount_price,
+    images,
     description,
     status,
     categories 
   } = req.body;
   const createdProduct = new Product({
     title,
-    mrp,
-    discount_mrp,
-    image,
-    more_images,
+    price,
+    discount_price,
+    images,
     description,
     status,
     categories,
@@ -120,7 +118,7 @@ const editProduct = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return next(new HttpError("Invalid input", 422));
   }
-  const { title, mrp, discount_mrp, image, status, description, categories } =
+  const { title, price, discount_price, image, status, description, categories } =
     req.body;
   const productId = req.params.pid;
   let product;
@@ -133,8 +131,8 @@ const editProduct = async (req, res, next) => {
     return next(new HttpError("No product found for this id.", 404));
   }
   product.title = title;
-  product.mrp = mrp;
-  product.discount_mrp = discount_mrp;
+  product.price = price;
+  product.discount_price = discount_price;
   product.image = image;
   product.status = status;
   product.description = description;
