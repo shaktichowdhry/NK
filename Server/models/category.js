@@ -10,5 +10,6 @@ const categorySchema = new Schema({
 });
 
 categorySchema.plugin(uniqueValidator);
+categorySchema.index({"description": 1});
 
 export default model("Category", categorySchema);
